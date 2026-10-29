@@ -1,7 +1,7 @@
 .hero {
   /* Arch geometry: the open state and the doorway it closes into */
   --arch-open: inset(0vh 0vw 0vh 0vw round 0vw 0vw 0vw 0vw);
-  --arch: inset(11vh 36vw 7vh 36vw round 14vw 14vw 0vw 0vw);
+  --arch: inset(10vh 33vw 7vh 33vw round 17vw 17vw 0vw 0vw);
 
   position: relative;
   background: var(--c-black);
@@ -108,7 +108,7 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: 1fr 28vw 1fr;
+  grid-template-columns: 1fr 34vw 1fr;
   align-items: end;
   padding: 0 var(--gutter) 9vh;
   pointer-events: none;
@@ -122,7 +122,7 @@
   grid-column: 1;
   display: flex;
   flex-direction: column;
-  font-size: var(--fs-ko-display);
+  font-size: clamp(34px, 4.1vw, 78px);
   font-weight: 200;
   line-height: 1.18;
   letter-spacing: -0.02em;
@@ -161,13 +161,21 @@
 
 @media (max-width: 767px) {
   .hero {
-    --arch: inset(13vh 17vw 38vh 17vw round 33vw 33vw 0vw 0vw);
+    /* 80vw wide doorway, leaving the lower ~40% of the screen for the statement */
+    --arch: inset(12vh 10vw 41vh 10vw round 40vw 40vw 0vw 0vw);
   }
   :global(.motion-ok) .hero {
     height: 230vh;
   }
+  /* On phones the name sits mid-screen over the dark stage, inset from the edges */
   .wordmark {
-    bottom: 64px;
+    left: var(--gutter);
+    right: var(--gutter);
+    top: 56%;
+    bottom: auto;
+    font-size: 13.6vw;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
   }
   .late {
     grid-template-columns: 1fr;

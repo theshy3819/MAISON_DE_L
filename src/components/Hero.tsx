@@ -23,9 +23,8 @@ export default function Hero() {
       mm.add(MOTION_QUERY, () => {
         const root = ref.current!;
         const q = gsap.utils.selector(root);
-        const css = getComputedStyle(root);
-        const arch = css.getPropertyValue("--arch").trim();
-        const open = css.getPropertyValue("--arch-open").trim();
+        // Read lazily so a breakpoint change (rotation, resize, devtools device mode) picks up the right arch.
+        const archVar = (name: string) => () => getComputedStyle(root).getPropertyValue(name).trim();
 
         const mark = SplitText.create(q("[data-wordmark]"), { type: "chars", mask: "chars", charsClass: "char" });
 
@@ -42,9 +41,14 @@ export default function Hero() {
         gsap
           .timeline({
             defaults: { ease: "none" },
-            scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: 0.7 },
+            scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: 0.7, invalidateOnRefresh: true },
           })
-          .fromTo(q("[data-frame]"), { clipPath: open }, { clipPath: arch, duration: 0.6, ease: "power1.inOut" }, 0)
+          .fromTo(
+            q("[data-frame]"),
+            { clipPath: archVar("--arch-open") },
+            { clipPath: archVar("--arch"), duration: 0.6, ease: "power1.inOut" },
+            0,
+          )
           .to(q("[data-photo-scroll]"), { scale: 1.12, duration: 0.6 }, 0)
           .to(q("[data-wordmark]"), { yPercent: -60, autoAlpha: 0, letterSpacing: "0.18em", duration: 0.32 }, 0)
           .to(q("[data-meta]"), { autoAlpha: 0, duration: 0.15 }, 0)
