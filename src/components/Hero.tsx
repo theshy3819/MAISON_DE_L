@@ -82,7 +82,7 @@ export default function Hero() {
         </h1>
 
         <div className={styles.meta} data-meta data-hero-in>
-          <p>{hero.opening}</p>
+          <p>{hero.status}</p>
           <p>{hero.place}</p>
         </div>
 

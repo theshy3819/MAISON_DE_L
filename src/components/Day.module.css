@@ -44,21 +44,21 @@
   object-fit: cover;
 }
 
+.welcome {
+  width: 100%;
+}
+
+.back {
+  width: 78%;
+  align-self: flex-end;
+}
+
 .veil {
   width: 100%;
 }
 
-.rings {
-  width: 58%;
-  align-self: flex-end;
-}
-
-.table {
-  width: 100%;
-}
-
-.bouquet {
-  width: 46%;
+.candles {
+  width: 62%;
   margin-left: 12%;
 }
 
@@ -105,20 +105,20 @@
   .head {
     order: 1;
   }
-  .table {
+  .veil {
     order: 3;
   }
   .colB > div {
     order: 4;
   }
-  .veil {
+  .welcome {
     width: 86%;
   }
-  .rings {
-    width: 62%;
+  .back {
+    width: 80%;
   }
-  .bouquet {
-    width: 64%;
+  .candles {
+    width: 70%;
     margin-left: auto;
   }
 }

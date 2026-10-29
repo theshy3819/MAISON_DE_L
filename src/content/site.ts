@@ -1,86 +1,124 @@
 /**
  * Every piece of copy and every asset path lives here, so content changes are a one-file edit.
- * Photos under /images/gen/ were generated with Codex (image_gen) from the hall renders and mood briefs;
- * /images/*.jpg without "gen" are the original renders from the Figma file.
+ *
+ * Photos under /images/real/ come from the venue's Instagram (@maisondel_weddinghall),
+ * cropped clear of the text overlays used in the posts. /images/gen/ holds images generated
+ * with Codex: people-free high-resolution re-shoots of the real halls and bridal room, plus
+ * the lobby and buffet dishes where no real photo exists yet.
  */
 
 export const contact = {
-  phone: "010-8296-3579",
-  instagram: "https://www.instagram.com/maisondel.weddinghall/",
+  phone: "062-716-0101",
+  instagram: "https://www.instagram.com/maisondel_weddinghall/",
+  instagramHandle: "@maisondel_weddinghall",
   // TODO: 네이버 예약 페이지 URL
   naverBooking: "https://booking.naver.com/",
   hours: "상담 시간 10:00 – 17:30",
 };
 
 export const hero = {
-  image: { src: "/images/gen/hero-hall.jpg", alt: "크리스털 샹들리에 아래 꽃길과 미러 버진로드가 이어진 메종드엘 홀" },
-  opening: "2026년 8월 그랜드 오픈",
-  place: "광주 상무지구",
-  statement: ["도심 속", "별빛이", "머무는 곳"],
+  image: { src: "/images/gen/hero-aster.jpg", alt: "하트 모양 크리스털 샹들리에 아래 꽃길과 버진로드가 이어진 아스테르홀" },
+  status: "2027 예식 상담 진행 중",
+  place: "광주시청 앞, 상무지구",
+  statement: ["별빛처럼", "찬란한 순간을", "선물합니다"],
   intro:
-    "샤이니 블랙의 홀 위로 크리스털이 쏟아지고, 순백의 꽃길이 거울처럼 빛납니다. 메종드엘은 2026년 8월, 광주 상무지구에 문을 엽니다.",
+    "상무지구 시청 앞, 가장 빛나는 순간을 위한 프리미엄 웨딩 베뉴. 밤하늘이 쏟아지는 아스테르홀과 은하수처럼 빛나는 루센트홀에서 두 사람의 하루를 준비합니다.",
 };
+
+export type Shot = { src: string; blur: string; alt: string; label: string };
 
 export type Space = {
   id: string;
   name: string;
+  ko: string;
   subtitle: string;
   copy: string;
-  shots: { src: string; alt: string; label: string }[];
+  shots: Shot[];
+  /** Shown when the photos are renders or staged images rather than the finished space */
+  note?: string;
 };
+
+const shot = (folder: "real" | "gen") => (name: string, alt: string, label: string): Shot => ({
+  src: `/images/${folder}/${name}.jpg`,
+  blur: `/images/${folder}/${name}-blur.jpg`,
+  alt,
+  label,
+});
+const real = shot("real");
+// High-resolution re-shoots generated with Codex from the venue's own photos (no people)
+const gen = shot("gen");
+const genNote = "실제 공간 사진을 바탕으로 제작한 고화질 연출 이미지입니다.";
 
 export const spaces: Space[] = [
   {
-    id: "hall",
-    name: "Luxury Hall",
-    subtitle: "가장 찬란하게 빛날 당신을 위해",
-    copy: "샤이니 블랙 무드의 정제된 홀. 섬세한 조명과 꽃이 어우러져 버진로드 위에 경이로운 아우라를 만듭니다.",
+    id: "aster",
+    name: "Aster Hall",
+    ko: "아스테르홀",
+    subtitle: "밤하늘의 별빛이 쏟아지듯",
+    copy: "눈부신 빛으로 물드는 홀. 오래 기다려온 한 장면처럼, 순간이 멈춘 듯 아름답게 펼쳐지는 웨딩을 완성합니다.",
     shots: [
-      { src: "/images/gen/hero-hall.jpg", alt: "럭셔리 홀 전경", label: "홀 전경" },
-      { src: "/images/gen/hall-aisle.jpg", alt: "샹들리에가 비치는 미러 버진로드", label: "버진로드" },
-      { src: "/images/gen/hall-detail.jpg", alt: "크리스털과 흰 오키드 장식", label: "플라워 디테일" },
+      real("aster-bride", "샹들리에 아래 버진로드에 선 신부", "신부 입장"),
+      real("aster-aisle", "꽃으로 둘러싸인 미러 버진로드", "버진로드"),
+      real("aster-sky", "크리스털 샹들리에와 별이 흐르는 천장", "별빛 천장"),
+      real("aster-flowers", "버진로드를 따라 놓인 흰 꽃 장식", "플라워"),
+    ],
+  },
+  {
+    id: "lucent",
+    name: "Lucent Hall",
+    ko: "루센트홀",
+    subtitle: "은하수처럼 쏟아지는 찬란한 빛",
+    copy: "하늘 위 별을 옮겨놓은 듯한 샹들리에 아래, 별빛보다 아름답게 빛날 당신의 순간을 만나보세요.",
+    note: genNote,
+    shots: [
+      gen("lucent-cascade", "천장에서 은하수처럼 쏟아지는 루센트홀의 크리스털", "크리스털 캐노피"),
+      gen("lucent-detail", "빛을 머금은 크리스털 장식", "디테일"),
     ],
   },
   {
     id: "bridal",
     name: "Bridal Room",
-    subtitle: "아름다운 신부를 위한 공간",
-    copy: "은은한 빛을 담은 프라이빗 공간. 벽을 가득 채운 화이트 플로럴과 모던한 마감이 신부를 가장 돋보이게 합니다.",
+    ko: "신부대기실",
+    subtitle: "신부의 설렘이 머무는 공간",
+    copy: "밝은 공간에 자연스럽게 스며드는 빛과 플로럴 월. 예식 전 설레는 시간까지 가장 아름다운 모습으로 머무를 수 있도록 준비했습니다.",
+    note: genNote,
     shots: [
-      { src: "/images/gen/bridal.jpg", alt: "화이트 플로럴 월이 있는 브라이덜 룸", label: "브라이덜 룸" },
-      { src: "/images/bridal-01.jpg", alt: "브라이덜 룸에서 대기 중인 신부", label: "신부 대기" },
+      gen("bridal-room", "흰 꽃 벽 앞의 부클레 소파", "대기 공간"),
+      gen("bridal-candle", "크리스털 캔들 홀더와 흰 장미 장식", "캔들 디테일"),
+      gen("bridal-florals", "신부대기실을 채운 화이트 플로럴 월", "플로럴 월"),
     ],
   },
   {
     id: "lobby",
     name: "Lobby Lounge",
+    ko: "로비 라운지",
     subtitle: "넓고 탁 트인 메종드엘 로비",
     copy: "도심 속 편안한 고품격 라운지. 동선이 넉넉해 하객이 붐빌 걱정 없이 머무를 수 있습니다.",
+    note: "로비 사진은 설계 렌더 기반의 연출 이미지로, 실제와 다를 수 있습니다.",
     shots: [
-      { src: "/images/gen/lobby.jpg", alt: "대리석 마감의 로비 라운지", label: "로비 라운지" },
-      { src: "/images/lobby-01.jpg", alt: "엘리베이터 홀과 조형 작품", label: "엘리베이터 홀" },
+      { src: "/images/gen/lobby.jpg", blur: "/images/gen/lobby-blur.jpg", alt: "대리석 마감의 로비 라운지", label: "로비 라운지" },
+      { src: "/images/lobby-01.jpg", blur: "/images/lobby-01-blur.jpg", alt: "엘리베이터 홀과 조형 작품", label: "엘리베이터 홀" },
     ],
   },
 ];
 
-export const spacesNote = "공간 이미지는 이해를 돕기 위한 연출 이미지로, 공사 진행에 따라 변경될 수 있습니다.";
-
 export const day = {
   title: "The Day",
-  subtitle: "메종드엘에서 보내는 하루",
-  text: "입장의 떨림부터 마지막 건배까지. 빛과 꽃, 그리고 두 사람만을 위한 장면을 준비합니다.",
-  shots: [
-    { src: "/images/gen/moment-veil.jpg", alt: "빛을 받은 웨딩 베일과 나비", ratio: "2 / 3" },
-    { src: "/images/gen/moment-table.jpg", alt: "촛불과 크리스털 잔이 놓인 만찬 테이블", ratio: "3 / 2" },
-    { src: "/images/gen/moment-rings.jpg", alt: "실크 위의 웨딩 링", ratio: "4 / 5" },
-    { src: "/images/gen/moment-bouquet.jpg", alt: "작약과 장미 부케", ratio: "4 / 5" },
-  ],
+  subtitle: "하객의 시선에 담긴 순간까지",
+  text: "객석에 앉아 바라보는 순간, 두 사람의 가장 아름다운 장면이 시작됩니다. 가까이에서 마주하는 순간부터 멀리서 바라보아도 오래 기억될 장면까지.",
+  shots: {
+    welcome: { src: "/images/real/welcome.jpg", alt: "웨딩 사진이 놓인 웰컴 테이블", ratio: "762 / 680" },
+    veil: { src: "/images/real/couple-veil.jpg", alt: "베일을 길게 늘어뜨리고 걷는 신랑 신부", ratio: "1086 / 520" },
+    candles: { src: "/images/real/candles.jpg", alt: "흰 꽃과 캔들 장식", ratio: "1087 / 617" },
+    back: { src: "/images/real/couple-back.jpg", alt: "샹들리에 아래 마주 선 신랑 신부의 뒷모습", ratio: "954 / 470" },
+  },
 };
 
 export const buffet = {
   title: "Star Chef's Buffet",
   subtitle: "스타 셰프 레시피의 5성급 호텔 뷔페",
   closing: "한식, 일식, 중식, 프렌치까지 호텔급 뷔페의 진수를 메종드엘에서 경험하세요.",
+  note: "메뉴 사진은 연출 이미지입니다.",
   menu: [
     { name: "숯불 바비큐 스테이션", detail: "비장탄으로 즉석에서 굽는 스테이크와 그릴 요리", image: "/images/gen/buffet-steak.jpg" },
     { name: "스시와 사시미 스테이션", detail: "셰프가 바로 쥐어 내는 스시와 사시미", image: "/images/gen/buffet-sushi.jpg" },
@@ -97,7 +135,7 @@ const parkQuery = "광주 서구 평화공원";
 export const location = {
   title: "오시는 길",
   address: "광주 서구 시청로 67, 3층",
-  building: "상무지구 CGV 건물",
+  building: "광주시청 앞, 상무지구 CGV 건물",
   // 카카오 지도 JavaScript 키가 있으면 NEXT_PUBLIC_KAKAO_MAP_KEY 로 실제 지도가 뜹니다.
   coords: null as null | { lat: number; lng: number },
   query: mapQuery,
@@ -115,9 +153,9 @@ export const location = {
 };
 
 export const reservation = {
-  title: "상담 예약",
-  text: "성함과 연락처, 예정일을 남겨주시면 상담 시간 안에 먼저 연락드립니다. 상담을 신청하시면 오픈 이벤트 혜택을 함께 안내해 드려요.",
-  image: { src: "/images/gen/hall-aisle.jpg", alt: "샹들리에가 비치는 메종드엘 홀의 미러 버진로드" },
+  title: "2027 예식 상담",
+  text: "성함과 연락처, 예정일을 남겨주시면 상담 시간 안에 먼저 연락드립니다.",
+  image: { src: "/images/gen/aster-aisle-hd.jpg", alt: "커튼과 흰 꽃 사이로 이어진 아스테르홀의 미러 버진로드" },
 };
 
 export const company = {
@@ -125,7 +163,7 @@ export const company = {
   ceo: "최금복",
   address: "광주 서구 시청로 67, 3층(상무지구 CGV건물)",
   bizNo: "866-86-03677",
-  tel: "010-8296-3579",
+  tel: "062-716-0101",
   email: "acehyun2675@naver.com",
   privacyOfficer: "최금복",
 };

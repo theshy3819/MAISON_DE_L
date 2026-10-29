@@ -57,6 +57,7 @@ export default function Buffet() {
       <p className={styles.closing} data-reveal="lines">
         {buffet.closing}
       </p>
+      <p className={styles.note}>{buffet.note}</p>
     </section>
   );
 }

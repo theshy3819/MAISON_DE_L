@@ -12,16 +12,16 @@ const italiana = Italiana({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: "메종드엘 웨딩홀 | MAISON DE L — 광주 상무지구 럭셔리 웨딩홀",
+  title: "메종드엘 웨딩홀 | MAISON DE L — 광주시청 앞 프리미엄 웨딩 베뉴",
   description:
-    "도심 속 별빛이 머무는 곳, 광주 상무지구 메종드엘 웨딩홀. 샤이니 블랙 럭셔리 홀, 브라이덜 룸, 5성급 호텔 뷔페. 2026년 8월 그랜드 오픈.",
-  keywords: ["메종드엘", "MAISON DE L", "광주 웨딩홀", "상무지구 웨딩홀", "광주 결혼식장", "럭셔리 웨딩"],
+    "상무지구 광주시청 앞 프리미엄 웨딩 베뉴 메종드엘. 별빛이 쏟아지는 아스테르홀과 루센트홀, 신부대기실, 스타 셰프 뷔페. 2027 예식 상담 진행 중 062-716-0101.",
+  keywords: ["메종드엘", "MAISON DE L", "광주 웨딩홀", "상무지구 웨딩홀", "광주 결혼식장", "아스테르홀", "루센트홀", "광주 예식장"],
   openGraph: {
-    title: "MAISON DE L — 2026.08 GRAND OPEN",
-    description: "도심 속 별빛이 머무는 곳. 광주 상무지구 메종드엘 웨딩홀",
+    title: "MAISON DE L — YOUR MOST BEAUTIFUL MOMENT",
+    description: "광주의 새로운 웨딩을 완성하다. 상무지구 시청 앞 프리미엄 웨딩 베뉴, 메종드엘",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "메종드엘 럭셔리 홀" }],
+    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "메종드엘 아스테르홀의 크리스털 샹들리에와 꽃길" }],
   },
 };
 

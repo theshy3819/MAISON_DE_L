@@ -8,7 +8,7 @@ export default function Footer() {
       <div className={styles.top}>
         <a href={contact.instagram} target="_blank" rel="noreferrer" className={styles.insta}>
           <InstagramIcon size={18} />
-          @maisondel.weddinghall
+          {contact.instagramHandle}
         </a>
         <a href="#top" className={styles.toTop}>
           처음으로

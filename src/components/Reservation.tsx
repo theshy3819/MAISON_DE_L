@@ -59,7 +59,7 @@ export default function Reservation() {
       <div className={styles.grid}>
         <figure className={styles.arch} data-reveal="rise">
           <div className={styles.archMedia} data-reveal-media>
-            <Image src={reservation.image.src} alt={reservation.image.alt} fill sizes="(max-width: 900px) 70vw, 34vw" />
+            <Image src={reservation.image.src} alt={reservation.image.alt} fill sizes="(max-width: 900px) 70vw, 38vw" />
           </div>
         </figure>
 

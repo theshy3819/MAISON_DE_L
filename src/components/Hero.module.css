@@ -44,7 +44,7 @@
 
 .photoScroll img {
   object-fit: cover;
-  object-position: 50% 55%;
+  object-position: 50% 50%;
 }
 
 .shade {
