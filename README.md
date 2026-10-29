@@ -2,11 +2,21 @@
 
 광주 상무지구 메종드엘 웨딩홀 원페이지 사이트. Next.js 16 + React 19, GSAP · Lenis.
 
+**배포 주소: https://theshy3819.github.io/MAISON_DE_L/**
+
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build && npm start
+npm run build    # 정적 사이트가 out/ 에 생성됨
 ```
+
+## 배포 (GitHub Pages)
+
+- `main` 에 푸시하면 `.github/workflows/deploy.yml` 이 정적 빌드(`output: "export"`) 후 GitHub Pages에 자동 배포합니다. 진행 상황은 저장소 **Actions** 탭에서 볼 수 있습니다.
+- 사이트가 `/MAISON_DE_L/` 하위 경로에서 서비스되므로, 워크플로가 `NEXT_PUBLIC_BASE_PATH` 를 넣어 빌드합니다. `public/` 파일 경로는 반드시 `asset()`(`src/lib/asset.ts`)을 거쳐야 합니다.
+- 정적 호스팅이라 서버 API가 없습니다. 상담 신청 폼은 `RESERVATION_ENDPOINT` 저장소 변수(Formspree, Google Apps Script 웹앱 등)가 있으면 그 주소로 전송하고, 없으면 방문자의 메일 앱에 신청 내용을 채워 `acehyun2675@naver.com` 으로 보내게 합니다.
+- 이미지 최적화 서버가 없어 `images.unoptimized` 로 원본 JPEG를 그대로 씁니다.
+- 커스텀 도메인을 쓰려면 저장소 Settings → Pages 에서 도메인을 연결하고, 워크플로의 base path가 비게 되는지 확인하세요.
 
 ## 디자인 방향
 
@@ -33,7 +43,8 @@ npm run build && npm start
 | `src/components/` | Intro, Header, Hero, Spaces, Day, Buffet, Location, Reservation, Footer |
 | `src/lib/gsap.ts` | GSAP 플러그인 등록, 공용 이징(`silk`, `wipe`) |
 | `src/lib/useReveals.ts` | `data-reveal="…"` 속성 기반 스크롤 등장 애니메이션 |
-| `src/app/api/reservation/route.ts` | 상담 신청 접수 API (웹훅 전달) |
+| `src/lib/asset.ts` | `public/` 경로에 GitHub Pages base path를 붙이는 헬퍼 |
+| `.github/workflows/deploy.yml` | GitHub Pages 자동 배포 |
 
 ## 사진
 
@@ -58,4 +69,4 @@ npm run build && npm start
 
 ## 환경 변수
 
-`.env.example` 참고. `RESERVATION_WEBHOOK_URL`(상담 신청 전달), `NEXT_PUBLIC_SITE_URL`(OG 이미지).
+`.env.example` 참고. `NEXT_PUBLIC_RESERVATION_ENDPOINT`(상담 신청 폼 전송 주소), `NEXT_PUBLIC_BASE_PATH`·`NEXT_PUBLIC_SITE_URL`(배포 시 워크플로가 자동 설정).

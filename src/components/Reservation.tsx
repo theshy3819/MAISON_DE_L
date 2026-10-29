@@ -2,12 +2,20 @@
 
 import Image from "next/image";
 import { useRef, useState, type FormEvent } from "react";
-import { contact, reservation } from "@/content/site";
+import { company, contact, reservation } from "@/content/site";
 import { useReveals } from "@/lib/useReveals";
 import PrivacyModal from "./PrivacyModal";
 import styles from "./Reservation.module.css";
 
-type Status = "idle" | "sending" | "done" | "error";
+type Status = "idle" | "sending" | "done" | "mailed" | "error";
+
+/*
+ * The site is a static export (GitHub Pages), so there is no server route.
+ * With NEXT_PUBLIC_RESERVATION_ENDPOINT set (Formspree, Google Apps Script, …) the form posts there as
+ * url-encoded fields — a "simple" request, so no CORS preflight. Without it, the visitor's mail app opens
+ * with the request filled in.
+ */
+const ENDPOINT = process.env.NEXT_PUBLIC_RESERVATION_ENDPOINT;
 
 // 01012345678 → 010-1234-5678 as the visitor types
 const formatPhone = (value: string) => {
@@ -39,12 +47,24 @@ export default function Reservation() {
     if (new Date(`${date}T00:00:00`) < today) return setError("결혼 예정일은 오늘 이후로 선택해 주세요.");
     if (!agree) return setError("개인정보 수집·이용에 동의해 주세요.");
     setError("");
+    const fields = { 성함: name.trim(), 연락처: phone, 결혼예정일: date, 개인정보동의: "동의" };
+
+    if (!ENDPOINT) {
+      const body = Object.entries(fields)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join("\n");
+      const subject = `[메종드엘] 2027 예식 상담 신청 - ${fields.성함}`;
+      window.location.href = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setStatus("mailed");
+      return;
+    }
+
     setStatus("sending");
     try {
-      const res = await fetch("/api/reservation", {
+      const res = await fetch(ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), phone, weddingDate: date, agree }),
+        headers: { Accept: "application/json" },
+        body: new URLSearchParams({ ...fields, _subject: `2027 예식 상담 신청 - ${fields.성함}` }),
       });
       if (!res.ok) throw new Error();
       setStatus("done");
@@ -74,6 +94,16 @@ export default function Reservation() {
               <p className={styles.doneTitle}>상담 신청을 받았습니다.</p>
               <p>
                 {name}님, {contact.hours} 안에 {phone}로 연락드리겠습니다.
+              </p>
+            </div>
+          ) : status === "mailed" ? (
+            <div className={styles.done} role="status">
+              <p className={styles.doneTitle}>메일 앱에서 보내기를 눌러 신청을 마쳐 주세요.</p>
+              <p>
+                메일 앱이 열리지 않았다면 {contact.phone}로 전화 주시면 바로 안내해 드립니다.{" "}
+                <button type="button" className={styles.more} onClick={() => setStatus("idle")}>
+                  다시 작성하기
+                </button>
               </p>
             </div>
           ) : (

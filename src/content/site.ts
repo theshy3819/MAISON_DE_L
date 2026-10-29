@@ -7,6 +7,8 @@
  * the lobby and buffet dishes where no real photo exists yet.
  */
 
+import { asset } from "@/lib/asset";
+
 export const contact = {
   phone: "062-716-0101",
   instagram: "https://www.instagram.com/maisondel_weddinghall/",
@@ -17,7 +19,7 @@ export const contact = {
 };
 
 export const hero = {
-  image: { src: "/images/gen/hero-aster.jpg", alt: "하트 모양 크리스털 샹들리에 아래 꽃길과 버진로드가 이어진 아스테르홀" },
+  image: { src: asset("/images/gen/hero-aster.jpg"), alt: "하트 모양 크리스털 샹들리에 아래 꽃길과 버진로드가 이어진 아스테르홀" },
   status: "2027 예식 상담 진행 중",
   place: "광주시청 앞, 상무지구",
   statement: ["별빛처럼", "찬란한 순간을", "선물합니다"],
@@ -39,8 +41,8 @@ export type Space = {
 };
 
 const shot = (folder: "real" | "gen") => (name: string, alt: string, label: string): Shot => ({
-  src: `/images/${folder}/${name}.jpg`,
-  blur: `/images/${folder}/${name}-blur.jpg`,
+  src: asset(`/images/${folder}/${name}.jpg`),
+  blur: asset(`/images/${folder}/${name}-blur.jpg`),
   alt,
   label,
 });
@@ -97,8 +99,8 @@ export const spaces: Space[] = [
     copy: "도심 속 편안한 고품격 라운지. 동선이 넉넉해 하객이 붐빌 걱정 없이 머무를 수 있습니다.",
     note: "로비 사진은 설계 렌더 기반의 연출 이미지로, 실제와 다를 수 있습니다.",
     shots: [
-      { src: "/images/gen/lobby.jpg", blur: "/images/gen/lobby-blur.jpg", alt: "대리석 마감의 로비 라운지", label: "로비 라운지" },
-      { src: "/images/lobby-01.jpg", blur: "/images/lobby-01-blur.jpg", alt: "엘리베이터 홀과 조형 작품", label: "엘리베이터 홀" },
+      { src: asset("/images/gen/lobby.jpg"), blur: asset("/images/gen/lobby-blur.jpg"), alt: "대리석 마감의 로비 라운지", label: "로비 라운지" },
+      { src: asset("/images/lobby-01.jpg"), blur: asset("/images/lobby-01-blur.jpg"), alt: "엘리베이터 홀과 조형 작품", label: "엘리베이터 홀" },
     ],
   },
 ];
@@ -108,10 +110,10 @@ export const day = {
   subtitle: "하객의 시선에 담긴 순간까지",
   text: "객석에 앉아 바라보는 순간, 두 사람의 가장 아름다운 장면이 시작됩니다. 가까이에서 마주하는 순간부터 멀리서 바라보아도 오래 기억될 장면까지.",
   shots: {
-    welcome: { src: "/images/real/welcome.jpg", alt: "웨딩 사진이 놓인 웰컴 테이블", ratio: "762 / 680" },
-    veil: { src: "/images/real/couple-veil.jpg", alt: "베일을 길게 늘어뜨리고 걷는 신랑 신부", ratio: "1086 / 520" },
-    candles: { src: "/images/real/candles.jpg", alt: "흰 꽃과 캔들 장식", ratio: "1087 / 617" },
-    back: { src: "/images/real/couple-back.jpg", alt: "샹들리에 아래 마주 선 신랑 신부의 뒷모습", ratio: "954 / 470" },
+    welcome: { src: asset("/images/real/welcome.jpg"), alt: "웨딩 사진이 놓인 웰컴 테이블", ratio: "762 / 680" },
+    veil: { src: asset("/images/real/couple-veil.jpg"), alt: "베일을 길게 늘어뜨리고 걷는 신랑 신부", ratio: "1086 / 520" },
+    candles: { src: asset("/images/real/candles.jpg"), alt: "흰 꽃과 캔들 장식", ratio: "1087 / 617" },
+    back: { src: asset("/images/real/couple-back.jpg"), alt: "샹들리에 아래 마주 선 신랑 신부의 뒷모습", ratio: "954 / 470" },
   },
 };
 
@@ -121,12 +123,12 @@ export const buffet = {
   closing: "한식, 일식, 중식, 프렌치까지 호텔급 뷔페의 진수를 메종드엘에서 경험하세요.",
   note: "메뉴 사진은 연출 이미지입니다.",
   menu: [
-    { name: "숯불 바비큐 스테이션", detail: "비장탄으로 즉석에서 굽는 스테이크와 그릴 요리", image: "/images/gen/buffet-steak.jpg" },
-    { name: "스시와 사시미 스테이션", detail: "셰프가 바로 쥐어 내는 스시와 사시미", image: "/images/gen/buffet-sushi.jpg" },
-    { name: "캐비어 & 샐러드", detail: "캐비어 스테이션과 프레시한 샐러드 바", image: "/images/gen/buffet-caviar.jpg" },
-    { name: "트러플 앙쿠르트 스프", detail: "페이스트리를 덮어 구운 트러플 버섯 스프", image: "/images/gen/buffet-soup.jpg" },
-    { name: "베이커리 & 디저트", detail: "5성급 호텔 수준의 파티세리", image: "/images/gen/buffet-dessert.jpg" },
-    { name: "즉석 한식 코너", detail: "갈비탕을 비롯한 정갈한 즉석 한식", image: "/images/gen/buffet-galbitang.jpg" },
+    { name: "숯불 바비큐 스테이션", detail: "비장탄으로 즉석에서 굽는 스테이크와 그릴 요리", image: asset("/images/gen/buffet-steak.jpg") },
+    { name: "스시와 사시미 스테이션", detail: "셰프가 바로 쥐어 내는 스시와 사시미", image: asset("/images/gen/buffet-sushi.jpg") },
+    { name: "캐비어 & 샐러드", detail: "캐비어 스테이션과 프레시한 샐러드 바", image: asset("/images/gen/buffet-caviar.jpg") },
+    { name: "트러플 앙쿠르트 스프", detail: "페이스트리를 덮어 구운 트러플 버섯 스프", image: asset("/images/gen/buffet-soup.jpg") },
+    { name: "베이커리 & 디저트", detail: "5성급 호텔 수준의 파티세리", image: asset("/images/gen/buffet-dessert.jpg") },
+    { name: "즉석 한식 코너", detail: "갈비탕을 비롯한 정갈한 즉석 한식", image: asset("/images/gen/buffet-galbitang.jpg") },
   ],
 };
 
@@ -155,7 +157,7 @@ export const location = {
 export const reservation = {
   title: "2027 예식 상담",
   text: "성함과 연락처, 예정일을 남겨주시면 상담 시간 안에 먼저 연락드립니다.",
-  image: { src: "/images/gen/aster-aisle-hd.jpg", alt: "커튼과 흰 꽃 사이로 이어진 아스테르홀의 미러 버진로드" },
+  image: { src: asset("/images/gen/aster-aisle-hd.jpg"), alt: "커튼과 흰 꽃 사이로 이어진 아스테르홀의 미러 버진로드" },
 };
 
 export const company = {

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { asset } from "@/lib/asset";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { completeIntro } from "@/lib/intro";
 import { useLenis } from "./SmoothScroll";
@@ -77,7 +78,7 @@ export default function Intro() {
       <div className={styles.door} data-door="right" />
       <span className={styles.seam} data-seam />
       <div className={styles.mark} data-mark>
-        <Image src="/images/logo-white.png" alt="" width={240} height={77} className={styles.logo} loading="eager" />
+        <Image src={asset("/images/logo-white.png")} alt="" width={240} height={77} className={styles.logo} loading="eager" />
         <span className={styles.track}>
           <span className={styles.progress} data-progress />
         </span>

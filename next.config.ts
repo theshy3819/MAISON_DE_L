@@ -1,11 +1,18 @@
 import type { NextConfig } from "next";
 
+/*
+ * Static export for GitHub Pages. The site is served from /MAISON_DE_L/, which the
+ * deploy workflow passes in as NEXT_PUBLIC_BASE_PATH; locally it stays at the root.
+ */
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  output: "export",
+  basePath,
+  trailingSlash: true,
   images: {
-    formats: ["image/avif", "image/webp"],
-    qualities: [75, 85],
+    // GitHub Pages has no image optimiser; photos are pre-sized JPEGs in /public
+    unoptimized: true,
   },
 };
 

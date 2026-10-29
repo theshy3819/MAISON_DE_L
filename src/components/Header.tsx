@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { contact } from "@/content/site";
+import { asset } from "@/lib/asset";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { onIntroComplete } from "@/lib/intro";
 import { PhoneIcon } from "./icons";
@@ -68,8 +69,8 @@ export default function Header() {
   return (
     <header ref={ref} className={styles.header} data-tone={theme} data-hidden={hidden || undefined}>
       <a href="#top" className={styles.logo} aria-label="MAISON DE L 메종드엘 처음으로">
-        <Image src="/images/logo-white.png" alt="" width={225} height={72} className={styles.logoWhite} loading="eager" />
-        <Image src="/images/logo-black.png" alt="" width={225} height={72} className={styles.logoBlack} loading="eager" />
+        <Image src={asset("/images/logo-white.png")} alt="" width={225} height={72} className={styles.logoWhite} loading="eager" />
+        <Image src={asset("/images/logo-black.png")} alt="" width={225} height={72} className={styles.logoBlack} loading="eager" />
       </a>
 
       <nav className={styles.nav} aria-label="주요 메뉴">

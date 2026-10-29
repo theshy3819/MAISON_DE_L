@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Italiana } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import { asset } from "@/lib/asset";
 import "./globals.css";
 
 const italiana = Italiana({
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     description: "광주의 새로운 웨딩을 완성하다. 상무지구 시청 앞 프리미엄 웨딩 베뉴, 메종드엘",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "메종드엘 아스테르홀의 크리스털 샹들리에와 꽃길" }],
+    images: [{ url: asset("/images/og.jpg"), width: 1200, height: 630, alt: "메종드엘 아스테르홀의 크리스털 샹들리에와 꽃길" }],
   },
 };
 
