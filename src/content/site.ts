@@ -13,8 +13,6 @@ export const contact = {
   phone: "062-716-0101",
   instagram: "https://www.instagram.com/maisondel_weddinghall/",
   instagramHandle: "@maisondel_weddinghall",
-  // TODO: 네이버 예약 페이지 URL
-  naverBooking: "https://booking.naver.com/",
   hours: "상담 시간 10:00 – 17:30",
 };
 

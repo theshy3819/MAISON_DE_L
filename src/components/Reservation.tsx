@@ -175,12 +175,7 @@ export default function Reservation() {
             <a href={`tel:${contact.phone.replaceAll("-", "")}`} className={styles.tel}>
               {contact.phone}
             </a>
-            <p className={styles.directMeta}>
-              {contact.hours}
-              <a href={contact.naverBooking} target="_blank" rel="noreferrer" className={styles.naver}>
-                네이버 예약으로 신청하기
-              </a>
-            </p>
+            <p className={styles.directMeta}>{contact.hours}</p>
           </div>
         </div>
       </div>

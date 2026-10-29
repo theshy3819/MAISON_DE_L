@@ -259,10 +259,6 @@
   color: rgba(244, 245, 242, 0.6);
 }
 
-.naver {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
 @media (max-width: 900px) {
   .grid {
