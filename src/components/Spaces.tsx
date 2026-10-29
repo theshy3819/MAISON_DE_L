@@ -20,7 +20,8 @@ export default function Spaces() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add(MOTION_QUERY, () => {
+      // Pinned stacking only where panels are pinned (desktop); phones scroll the rooms normally.
+      mm.add(`${MOTION_QUERY} and (min-width: 901px)`, () => {
         const panels = gsap.utils.toArray<HTMLElement>("[data-panel]", ref.current);
         panels.forEach((panel, i) => {
           const next = panels[i + 1];
