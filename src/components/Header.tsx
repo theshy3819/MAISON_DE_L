@@ -6,7 +6,7 @@ import { contact } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { onIntroComplete } from "@/lib/intro";
-import { PhoneIcon } from "./icons";
+import { InstagramIcon, PhoneIcon } from "./icons";
 import styles from "./Header.module.css";
 
 type Theme = "dark" | "light";
@@ -85,6 +85,15 @@ export default function Header() {
         <a href={`tel:${contact.phone.replaceAll("-", "")}`} className={styles.tel} aria-label={`전화 상담 ${contact.phone}`}>
           <PhoneIcon size={18} />
           <span className={styles.telNumber}>{contact.phone}</span>
+        </a>
+        <a
+          href={contact.instagram}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.insta}
+          aria-label={`메종드엘 인스타그램 ${contact.instagramHandle} (새 창)`}
+        >
+          <InstagramIcon size={19} />
         </a>
         <a href="#reservation" className={styles.book}>
           상담 예약
