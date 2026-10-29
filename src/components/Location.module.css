@@ -1,0 +1,181 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: var(--section-pb);
+  background: #fff;
+}
+
+.map {
+  position: relative;
+  width: var(--content);
+  aspect-ratio: 1424 / 800;
+  margin-top: var(--section-gap);
+  overflow: hidden;
+  background: #f3f1ec;
+}
+
+.mapMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.mapMedia img {
+  object-fit: cover;
+}
+
+/* "Open in Kakao" chip appears on hover (always visible on touch) */
+.open {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .open {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .map:hover .open,
+  .open:focus-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pin {
+  position: relative;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateY(-10px);
+}
+
+.pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  background: #000;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(36px, 4.4vw, 84px);
+  margin: clamp(40px, 3.6vw, 70px) 0 0;
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.infoItem dt {
+  font-size: var(--fs-sub);
+  font-weight: 700;
+  line-height: 1.44;
+}
+
+.infoItem dd {
+  text-wrap: balance;
+  margin: 0;
+  font-size: var(--fs-sub);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.places {
+  display: flex;
+  margin-top: clamp(48px, 3.8vw, 72px);
+}
+
+.place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 1.1vw, 20px);
+  padding-inline: clamp(24px, 3.6vw, 68px);
+}
+
+.place + .place {
+  border-left: 4px solid var(--c-mist);
+}
+
+.placeLabel {
+  font-size: clamp(14px, 0.95vw, 18px);
+  font-weight: 500;
+}
+
+.apps {
+  display: flex;
+  gap: clamp(16px, 2vw, 39px);
+}
+
+.app {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.appMark {
+  width: clamp(52px, 4.17vw, 80px);
+  height: auto;
+  border-radius: 50%;
+  transition:
+    transform 0.7s var(--ease-out),
+    box-shadow 0.7s var(--ease-out);
+}
+
+.appName {
+  position: absolute;
+  top: calc(100% + 10px);
+  font-size: 12px;
+  color: var(--c-sub);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .app:hover .appMark {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 24px rgba(0, 0, 0, 0.14);
+  }
+  .app:hover .appName {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .places {
+    flex-direction: column;
+    gap: 36px;
+  }
+  .place + .place {
+    border-left: 0;
+  }
+}

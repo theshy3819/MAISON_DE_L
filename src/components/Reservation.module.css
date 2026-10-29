@@ -1,0 +1,363 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: var(--section-pb);
+  background: var(--c-mist);
+}
+
+.card {
+  width: min(1170px, calc(100vw - var(--gutter) * 2));
+  margin-top: var(--section-gap);
+  padding: clamp(36px, 3.6vw, 68px) clamp(20px, 6.25vw, 120px) clamp(40px, 3.1vw, 60px);
+  background: #fff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.notice {
+  display: flex;
+  gap: 12px;
+  padding: 0 0 clamp(20px, 1.8vw, 34px) 14px;
+  border-bottom: 1px solid #555;
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.44;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 0.75vw, 14px);
+  padding: clamp(22px, 1.5vw, 28px) 0 clamp(22px, 1.5vw, 28px);
+  border-bottom: 1px solid #555;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: clamp(96px, 8.45vw, 162px) minmax(0, 1fr);
+  align-items: center;
+}
+
+.label {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+}
+
+.input {
+  height: clamp(48px, 3.1vw, 60px);
+  border: 1px solid #a3a3a3;
+  border-radius: 0;
+  background: #fff;
+  padding: 0 16px;
+  font: inherit;
+  font-size: clamp(16px, 1vw, 19px);
+  color: #000;
+  outline: none;
+  transition:
+    border-color 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+
+.input:hover {
+  border-color: #666;
+}
+
+.input:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.12);
+}
+
+.name {
+  width: min(345px, 100%);
+}
+
+.phone {
+  display: flex;
+  gap: 8px;
+}
+
+.phonePart {
+  width: min(100px, 30%);
+  min-width: 0;
+  text-align: center;
+  padding: 0 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.dateWrap {
+  position: relative;
+  width: min(222px, 100%);
+}
+
+.date {
+  width: 100%;
+  padding-right: 44px;
+  font-size: clamp(14px, 0.85vw, 16px);
+}
+
+.date[data-empty] {
+  color: #757575;
+}
+
+/* Keep the native picker clickable but show the design's calendar glyph */
+.date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0;
+  width: 44px;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dateIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.agreeRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: clamp(18px, 1.5vw, 28px);
+}
+
+.agree {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-sub);
+  color: var(--c-sub);
+  cursor: pointer;
+}
+
+.agree input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.box {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #a3a3a3;
+  border-radius: 4px;
+  background: #fff;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out);
+}
+
+.box::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 7px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.4s var(--ease-out);
+}
+
+.agree input:checked + .box {
+  background: #000;
+  border-color: #000;
+}
+
+.agree input:checked + .box::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.agree input:focus-visible + .box {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+.more {
+  font-size: 12px;
+  color: var(--c-sub);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.error {
+  min-height: 1.5em;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--c-accent);
+  text-align: center;
+}
+
+/* Red CTA — light sweeps across on hover */
+.submit {
+  position: relative;
+  align-self: center;
+  width: min(460px, 100%);
+  height: clamp(64px, 4.43vw, 85px);
+  margin-top: clamp(4px, 0.5vw, 10px);
+  overflow: hidden;
+  background: var(--c-cta);
+  color: #fff;
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  transition:
+    background-color 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out),
+    box-shadow 0.5s var(--ease-out);
+}
+
+.submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 1.2s var(--ease-out);
+}
+
+.submitLabel {
+  position: relative;
+}
+
+@media (hover: hover) {
+  .submit:hover {
+    background: #e50000;
+    box-shadow: 0 16px 36px rgba(255, 0, 0, 0.25);
+    transform: translateY(-2px);
+  }
+  .submit:hover::before {
+    transform: translateX(120%);
+  }
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(40px, 4vw, 80px) 0;
+  text-align: center;
+}
+
+.check {
+  width: 64px;
+  height: 64px;
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.check circle {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  animation: draw 1.2s var(--ease-out) forwards;
+}
+
+.check path {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: draw 0.8s var(--ease-out) 0.6s forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.doneTitle {
+  font-size: var(--fs-lead);
+  font-weight: 700;
+}
+
+.doneText {
+  font-size: var(--fs-sub);
+  color: var(--c-sub);
+  line-height: 1.6;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: clamp(36px, 2.8vw, 54px);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.hours {
+  font-size: var(--fs-sub);
+  color: var(--c-sub);
+  line-height: 1.44;
+}
+
+.tel {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.44;
+}
+
+.telLink {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.6s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .telLink:hover {
+    background-size: 100% 1px;
+  }
+}
+
+.naver {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(28px, 2.4vw, 46px);
+  font-size: var(--fs-sub);
+  font-weight: 500;
+}
+
+.naver a {
+  display: block;
+  transition: transform 0.6s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .naver a:hover {
+    transform: translateY(-3px) scale(1.06);
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .name,
+  .dateWrap {
+    width: 100%;
+  }
+  .phonePart {
+    flex: 1;
+    width: auto;
+  }
+}

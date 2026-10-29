@@ -1,0 +1,262 @@
+.section {
+  position: relative;
+  overflow: clip;
+  color: #fff;
+  isolation: isolate;
+}
+
+/* Grainy two-tone gradient from the design, kept alive with two slow light pools */
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(118deg, #bc5a34 0%, #a8803c 18%, #8fae43 40%, #84c84a 62%, #8fcc63 82%, #a6ce88 100%);
+}
+
+.glow,
+.glowAlt {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.glow {
+  width: 60vw;
+  height: 60vw;
+  left: -18vw;
+  top: -24vw;
+  background: radial-gradient(closest-side, rgba(208, 92, 52, 0.55), transparent);
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+.glowAlt {
+  width: 55vw;
+  height: 55vw;
+  right: -14vw;
+  bottom: -22vw;
+  background: radial-gradient(closest-side, rgba(214, 238, 196, 0.6), transparent);
+  animation: drift 32s ease-in-out -8s infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(8vw, 6vw, 0) scale(1.15);
+  }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.2 -0.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Symmetric full-width columns keep the arch on the page centre, as in the artboard;
+   side copy is inset with the artboard's own margins (281px / 115px at 1920). */
+.grid {
+  display: grid;
+  grid-template-columns: 706fr 507fr 706fr;
+  width: min(100%, 2200px);
+  margin: 0 auto;
+  padding: clamp(110px, 11vw, 212px) 0 clamp(110px, 12vw, 230px);
+  align-items: start;
+}
+
+/* Left column */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 1.5vw 0 14.6vw;
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(30px, 2.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.44;
+}
+
+.headLine {
+  display: block;
+}
+
+.headline strong {
+  font-weight: 900;
+}
+
+.rule {
+  display: block;
+  width: min(360px, 100%);
+  height: 1px;
+  margin: clamp(14px, 1.25vw, 24px) 0;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.lead,
+.note {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.44;
+}
+
+.note {
+  margin-top: clamp(16px, 1.6vw, 30px);
+}
+
+/* Arch */
+.figure {
+  margin: clamp(60px, 5.7vw, 110px) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 2.3vw, 44px);
+}
+
+.archWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 507 / 663;
+}
+
+.arch {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50% 50% 6.7% 6.7% / 38.3% 38.3% 5.1% 5.1%;
+  box-shadow: 0 30px 80px rgba(20, 40, 10, 0.25);
+}
+
+:global(.motion-ok) .arch {
+  visibility: hidden;
+}
+
+.archImg {
+  position: absolute;
+  inset: -6% 0;
+  will-change: transform;
+}
+
+.archImg img {
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.ring {
+  position: absolute;
+  left: -17%;
+  top: -13%;
+  width: 134%;
+  height: auto;
+  aspect-ratio: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.ring text {
+  fill: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  letter-spacing: 0.32em;
+  text-transform: none;
+}
+
+.ringSpin {
+  transform-origin: 340px 340px;
+  animation: spin 90s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.disclaimer {
+  font-size: clamp(11px, 0.73vw, 14px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+}
+
+/* Right column */
+.side {
+  padding: 0 var(--gutter) 0 6vw;
+  margin-top: clamp(70px, 7vw, 130px);
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 3.5vw, 67px);
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  width: min(400px, 100%);
+}
+
+.featureTitle {
+  font-size: var(--fs-lead);
+  font-weight: 800;
+  line-height: 1.44;
+}
+
+.featureRule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 14px 0 clamp(16px, 1.4vw, 26px);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.featureText {
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: 1.44;
+}
+
+.closing {
+  margin-top: clamp(56px, 4.8vw, 92px);
+  font-size: clamp(15px, 1.05vw, 20px);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.logo {
+  width: clamp(140px, 9.75vw, 187px);
+  margin-top: clamp(48px, 4.7vw, 90px);
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr;
+    width: min(560px, calc(100% - var(--gutter) * 2));
+    row-gap: 72px;
+  }
+  .intro,
+  .side {
+    padding: 0;
+    margin: 0;
+  }
+  .figure {
+    margin: 0;
+    padding-inline: 8%;
+  }
+  .side {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,118 @@
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: var(--section-pb);
+  overflow: clip;
+  color: #fff;
+  isolation: isolate;
+  background: #0d0b09;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 55% at 50% 45%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)),
+    rgba(0, 0, 0, 0.35);
+}
+
+.bgImg {
+  position: absolute;
+  inset: -10% 0;
+}
+
+.bgImg img {
+  object-fit: cover;
+}
+
+/* 972px at the 1920 artboard, scaling with the viewport but never below a phone-friendly size */
+.wheelWrap {
+  width: min(972px, max(50.6vw, min(92vw, 560px)));
+  margin-top: clamp(30px, 2.6vw, 50px);
+}
+
+.wheel {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+:global(.motion-ok) .wheel {
+  visibility: hidden;
+}
+
+/* Each slice sits a few units out along its bisector; hover pulls it further out */
+.slice {
+  transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px));
+  transition:
+    transform 0.9s var(--ease-out),
+    opacity 0.9s var(--ease-out),
+    filter 0.9s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .wheel:has(.slice:hover) .slice:not(:hover) {
+    opacity: 0.5;
+    filter: saturate(0.6);
+  }
+  .slice:hover {
+    transform: translate(calc(var(--dx) * 3.2px), calc(var(--dy) * 3.2px));
+    filter: brightness(1.08);
+  }
+}
+
+.sliceEdge {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1.5;
+}
+
+.hub {
+  fill: #0a0a0a;
+}
+
+.hubRing {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1;
+}
+
+.hubLogo {
+  pointer-events: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4px, 0.4vw, 8px);
+  margin-top: clamp(48px, 5vw, 96px);
+  padding-inline: var(--gutter);
+  font-size: clamp(15px, 1.15vw, 22px);
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.menuNo {
+  font-variant-numeric: tabular-nums;
+}
+
+.closing {
+  text-wrap: balance;
+  margin-top: clamp(48px, 4.6vw, 88px);
+  padding-inline: var(--gutter);
+  font-size: clamp(18px, 1.46vw, 28px);
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+}

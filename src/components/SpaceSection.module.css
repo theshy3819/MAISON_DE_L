@@ -1,0 +1,34 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--section-gap);
+  padding-bottom: var(--section-pb);
+  background: #fff;
+}
+
+.section[data-tone="gray"] {
+  background: var(--c-mist);
+}
+
+.copy {
+  text-wrap: balance;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: var(--gutter);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.44;
+  text-align: center;
+}
+
+.lead {
+  display: block;
+  color: #000;
+}
+
+.rest {
+  display: block;
+  color: var(--c-sub);
+}
