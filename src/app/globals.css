@@ -1,36 +1,35 @@
 @import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 
+/*
+ * Palette drawn from the hall itself: the mirror-black floor, crystal strands,
+ * white florals and the feathery grasses that line the aisle.
+ */
 :root {
-  /* Palette — taken from the Figma file */
-  --c-ink: #000;
-  --c-paper: #fff;
-  --c-mist: #ededed;
-  --c-sub: #666;
-  --c-accent: #dc143c;
-  --c-cta: #ff0000;
-  --c-footer: #333;
-  --c-line: #b3b3b3;
+  --c-black: #000;
+  --c-crystal: #f4f5f2;
+  --c-smoke: #8c8e89;
+  --c-ash: #2a2b29;
+  --c-mist: #dfe1dc;
+  --c-grass: #a9b994;
+  --c-error: #e5484d;
 
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
     "Noto Sans KR", sans-serif;
-  --font-serif: var(--font-abhaya), "Times New Roman", serif;
+  --font-display: var(--font-italiana), "Didot", "Bodoni 72", serif;
 
-  /* Motion system: long, soft settles for the "dreamy" feel; nothing snaps or bounces */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-wipe: cubic-bezier(0.77, 0, 0.18, 1);
 
-  /* Fluid scale — the Figma artboard is 1920 wide */
-  --gutter: clamp(20px, 4.2vw, 80px);
-  --content: min(1424px, calc(100vw - var(--gutter) * 2));
-  --fs-hero: clamp(46px, 5vw, 96px);
-  --fs-hero-eyebrow: clamp(20px, 2.5vw, 48px);
-  --fs-title: clamp(32px, 2.5vw, 48px);
-  --fs-lead: clamp(16px, 1.25vw, 24px);
-  --fs-sub: clamp(15px, 1.05vw, 20px);
-  --fs-small: clamp(13px, 0.83vw, 16px);
-  --section-line: clamp(72px, 8.33vw, 160px);
-  --section-gap: clamp(36px, 3.125vw, 60px);
-  --section-pb: clamp(96px, 8.33vw, 160px);
+  --gutter: clamp(20px, 4vw, 72px);
+  --wide: min(1680px, calc(100vw - var(--gutter) * 2));
+
+  /* Type scale (ratio ≈ 1.333 on a 17px body) */
+  --fs-body: clamp(15px, 0.95vw, 17px);
+  --fs-small: clamp(13px, 0.78vw, 14px);
+  --fs-lead: clamp(17px, 1.3vw, 22px);
+  --fs-ko-display: clamp(34px, 4.6vw, 84px);
+  --fs-ko-title: clamp(26px, 2.6vw, 46px);
+  --fs-name: clamp(54px, 8.4vw, 168px);
 }
 
 *,
@@ -51,10 +50,11 @@ html {
 }
 
 body {
-  background: var(--c-paper);
-  color: var(--c-ink);
+  background: var(--c-black);
+  color: var(--c-crystal);
   font-family: var(--font-sans);
-  font-feature-settings: "ss06";
+  font-size: var(--fs-body);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
@@ -63,7 +63,8 @@ body {
 
 img,
 video,
-svg {
+svg,
+canvas {
   display: block;
   max-width: 100%;
 }
@@ -87,7 +88,10 @@ h1,
 h2,
 h3,
 ul,
-ol {
+ol,
+dl,
+dd,
+figure {
   margin: 0;
 }
 
@@ -98,13 +102,13 @@ ol {
 }
 
 :focus-visible {
-  outline: 2px solid var(--c-accent);
+  outline: 2px solid var(--c-grass);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--c-accent);
-  color: #fff;
+  background: var(--c-grass);
+  color: var(--c-black);
 }
 
 .sr-only {
@@ -136,19 +140,16 @@ html.lenis body {
 
 /*
  * Reveal targets start hidden only when JS has flagged that motion is allowed
- * (see the inline script in layout.tsx), so no-JS and reduced-motion users
- * always get fully visible content.
+ * (inline script in layout.tsx), so no-JS and reduced-motion visitors see everything.
  */
 .motion-ok [data-reveal] {
   visibility: hidden;
 }
 
-/* SplitText masks get "<class>-mask"; a little bottom room keeps descenders unclipped */
 .split-line-mask,
-.word-mask,
-.char-mask {
-  padding-bottom: 0.1em;
-  margin-bottom: -0.1em;
+.word-mask {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
 }
 
 @media (prefers-reduced-motion: reduce) {

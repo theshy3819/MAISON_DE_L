@@ -1,64 +1,58 @@
 .hero {
+  /* Arch geometry: the open state and the doorway it closes into */
+  --arch-open: inset(0vh 0vw 0vh 0vw round 0vw 0vw 0vw 0vw);
+  --arch: inset(11vh 36vw 7vh 36vw round 14vw 14vw 0vw 0vw);
+
+  position: relative;
+  background: var(--c-black);
+  color: var(--c-crystal);
+}
+
+.stage {
   position: relative;
   height: 100svh;
   min-height: 600px;
   overflow: clip;
-  background: #000;
-  color: #fff;
 }
 
-.media,
-.inner {
+:global(.motion-ok) .hero {
+  height: 260vh;
+}
+
+:global(.motion-ok) .stage {
+  position: sticky;
+  top: 0;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--arch);
+  will-change: clip-path;
+}
+
+:global(.motion-ok) .frame {
+  clip-path: var(--arch-open);
+}
+
+.photo,
+.photoScroll {
   position: absolute;
   inset: 0;
   will-change: transform;
 }
 
-/* Slightly oversized so pointer parallax never reveals an edge */
-.parallax {
-  position: absolute;
-  inset: -28px;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-}
-
-.slide[data-first] {
-  opacity: 1;
-  visibility: visible;
-}
-
-.slide img,
-.video {
-  width: 100%;
-  height: 100%;
+.photoScroll img {
   object-fit: cover;
+  object-position: 50% 55%;
 }
 
-.video {
-  position: absolute;
-  inset: 0;
-}
-
-/* 40% black from the design, plus a soft vignette to seat the white type */
 .shade {
   position: absolute;
   inset: 0;
-  opacity: 0.4;
-  background: #000;
-}
-
-.shade::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   background:
-    radial-gradient(38% 30% at 50% 46%, rgba(0, 0, 0, 0.35), transparent),
-    radial-gradient(75% 65% at 50% 42%, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 22%, transparent 55%, rgba(0, 0, 0, 0.7)),
+    rgba(0, 0, 0, 0.12);
 }
 
 .dust {
@@ -69,167 +63,135 @@
   pointer-events: none;
 }
 
-.content {
+/* Wordmark spans the full width, sitting on the floor of the photo */
+.wordmark {
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 0 var(--gutter) 6vh;
-}
-
-.float {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(14px, 1.25vw, 24px);
+  left: 0;
+  right: 0;
+  bottom: clamp(56px, 7vh, 96px);
+  font-family: var(--font-display);
+  font-size: 17vw;
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: 0;
   text-align: center;
+  white-space: nowrap;
+  display: none;
 }
 
-:global(.motion-ok) [data-hero] {
+.meta {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(20px, 2.4vh, 32px);
+  display: none;
+  justify-content: space-between;
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+  color: rgba(244, 245, 242, 0.8);
+}
+
+:global(.motion-ok) .wordmark {
+  display: block;
+}
+
+:global(.motion-ok) .meta {
+  display: flex;
+}
+
+:global(.motion-ok) [data-hero-in] {
   visibility: hidden;
 }
 
-.eyebrow {
-  font-size: var(--fs-hero-eyebrow);
-  font-weight: 400;
-  line-height: 1.44;
-}
-
-.title {
-  font-size: var(--fs-hero);
-  font-weight: 900;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-.pill {
-  padding: 12px 28px;
-  border: 1px solid #fff;
-  border-radius: 74px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: var(--font-serif);
-  font-size: var(--fs-lead);
-  font-weight: 500;
-  line-height: normal;
-}
-
-.pill span {
-  display: inline-block;
-}
-
-.caption {
-  font-size: var(--fs-lead);
-  font-weight: 500;
-  line-height: 1.44;
-}
-
-.nav {
+/* End state: statement left of the arch, introduction to the right */
+.late {
   position: absolute;
-  left: 50%;
-  bottom: clamp(36px, 8vh, 102px);
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  transform: translateX(-50%);
-}
-
-.arrow {
+  inset: 0;
   display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  margin: -4px;
-  color: #fff;
-  transition: transform 0.6s var(--ease-out);
-}
-
-@media (hover: hover) {
-  .arrow:first-child:hover {
-    transform: translateX(-4px);
-  }
-  .arrow:last-child:hover {
-    transform: translateX(4px);
-  }
-}
-
-.dots {
-  display: flex;
-  gap: 36px;
-}
-
-.dot {
-  position: relative;
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transition:
-    background-color 0.6s var(--ease-out),
-    transform 0.6s var(--ease-out);
-}
-
-.dot::before {
-  /* larger hit area */
-  content: "";
-  position: absolute;
-  inset: -12px;
-}
-
-.dot[aria-current] {
-  background: #fff;
-}
-
-@media (hover: hover) {
-  .dot:hover {
-    transform: scale(1.3);
-  }
-}
-
-.ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 24px;
-  height: 24px;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  grid-template-columns: 1fr 28vw 1fr;
+  align-items: end;
+  padding: 0 var(--gutter) 9vh;
   pointer-events: none;
 }
 
-.ring circle {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.85);
-  stroke-width: 1;
-  stroke-dasharray: 66;
-  stroke-dashoffset: 66;
-  animation: progress linear forwards;
+:global(.motion-ok) .late {
+  visibility: hidden;
 }
 
-.ring[data-paused] circle {
-  animation-play-state: paused;
+.statement {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-ko-display);
+  font-weight: 200;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
 }
 
-@keyframes progress {
-  to {
-    stroke-dashoffset: 0;
+.statement span {
+  display: block;
+}
+
+.aside {
+  grid-column: 3;
+  justify-self: end;
+  max-width: 25em;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  pointer-events: auto;
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  color: rgba(244, 245, 242, 0.78);
+}
+
+.more {
+  align-self: flex-start;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  color: var(--c-crystal);
+  transition: color 0.4s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .more:hover {
+    color: var(--c-grass);
   }
 }
 
 @media (max-width: 767px) {
   .hero {
-    min-height: 560px;
+    --arch: inset(13vh 17vw 38vh 17vw round 33vw 33vw 0vw 0vw);
   }
-  .title {
-    letter-spacing: -0.01em;
+  :global(.motion-ok) .hero {
+    height: 230vh;
   }
-  .pill {
-    padding: 9px 18px;
-    font-size: 15px;
+  .wordmark {
+    bottom: 64px;
   }
-  .nav {
-    gap: 24px;
+  .late {
+    grid-template-columns: 1fr;
+    align-content: end;
+    gap: 16px;
+    padding-bottom: 5vh;
+    text-align: center;
   }
-  .dots {
-    gap: 22px;
+  .statement {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 0.28em;
+    font-size: 30px;
+  }
+  .aside {
+    grid-column: 1;
+    justify-self: center;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .more {
+    align-self: center;
   }
 }

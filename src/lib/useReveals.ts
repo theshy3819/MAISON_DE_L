@@ -13,6 +13,7 @@ import { gsap, MOTION_QUERY, SplitText, useGSAP } from "@/lib/gsap";
  *   data-reveal="line-y"  — vertical hairline draws downward
  *   data-reveal="line-x"  — horizontal hairline draws left → right
  *   data-reveal="wipe"    — frame wipes open left → right, photo ([data-reveal-media]) settles from a zoom
+ *   data-reveal="rise"    — same, opening upward from the bottom edge
  *   data-reveal="frame"   — full-width photo grows from an inset card as you scroll (scrubbed)
  *
  * Optional: data-delay="0.2" (seconds), data-start="top 80%" (ScrollTrigger start).
@@ -89,6 +90,12 @@ export function useReveals(scope: RefObject<HTMLElement | null>) {
               const tl = gsap.timeline({ delay, scrollTrigger });
               tl.fromTo(el, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "wipe" });
               if (media) tl.fromTo(media, { scale: 1.15 }, { scale: 1, duration: 1.4 }, 0);
+              break;
+            }
+            case "rise": {
+              const tl = gsap.timeline({ delay, scrollTrigger });
+              tl.fromTo(el, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "wipe" });
+              if (media) tl.fromTo(media, { scale: 1.2 }, { scale: 1, duration: 1.8 }, 0);
               break;
             }
             case "frame": {

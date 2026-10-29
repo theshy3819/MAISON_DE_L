@@ -5,34 +5,37 @@ import { useEffect, useRef, useState } from "react";
 import { contact } from "@/content/site";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { onIntroComplete } from "@/lib/intro";
-import { InstagramIcon, PhoneIcon } from "./icons";
+import { PhoneIcon } from "./icons";
 import styles from "./Header.module.css";
 
 type Theme = "dark" | "light";
 
+const nav = [
+  { href: "#spaces", label: "공간" },
+  { href: "#buffet", label: "뷔페" },
+  { href: "#location", label: "오시는 길" },
+];
+
 export default function Header() {
   const ref = useRef<HTMLElement>(null);
   const [theme, setTheme] = useState<Theme>("dark");
-  const [compact, setCompact] = useState(false);
   const [hidden, setHidden] = useState(false);
 
-  // Hide while reading downward, return on the slightest upward intent.
+  // Step out of the way while reading downward; come back on the slightest upward intent.
   useEffect(() => {
     let last = window.scrollY;
     let frame = 0;
     const update = () => {
       frame = 0;
       const y = window.scrollY;
-      setCompact(y > 40);
       if (Math.abs(y - last) > 6) {
-        setHidden(y > last && y > window.innerHeight * 0.6);
+        setHidden(y > last && y > window.innerHeight * 0.8);
         last = y;
       }
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
-    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -40,14 +43,13 @@ export default function Header() {
     };
   }, []);
 
-  // Swap logo / icon colour depending on the section underneath the bar.
+  // Ink colour follows the section under the bar.
   useGSAP(() => {
-    const sections = gsap.utils.toArray<HTMLElement>("[data-theme]");
-    sections.forEach((section) => {
+    gsap.utils.toArray<HTMLElement>("[data-theme]").forEach((section) => {
       ScrollTrigger.create({
         trigger: section,
-        start: "top 48px",
-        end: "bottom 48px",
+        start: "top 40px",
+        end: "bottom 40px",
         onToggle: (self) => self.isActive && setTheme(section.dataset.theme as Theme),
       });
     });
@@ -57,44 +59,34 @@ export default function Header() {
     () => {
       const el = ref.current;
       if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      gsap.set(el, { autoAlpha: 0, y: -24 });
-      return onIntroComplete(() => gsap.to(el, { autoAlpha: 1, y: 0, duration: 1.4, delay: 0.9 }));
+      gsap.set(el, { autoAlpha: 0 });
+      return onIntroComplete(() => gsap.to(el, { autoAlpha: 1, duration: 1.2, delay: 1.4 }));
     },
     { scope: ref },
   );
 
   return (
-    <header
-      ref={ref}
-      className={styles.header}
-      data-tone={theme}
-      data-compact={compact || undefined}
-      data-hidden={hidden || undefined}
-    >
-      <div className={styles.glass} aria-hidden />
-      <a href="#top" className={styles.logo} aria-label="MAISON DE L 메종드엘 홈으로">
+    <header ref={ref} className={styles.header} data-tone={theme} data-hidden={hidden || undefined}>
+      <a href="#top" className={styles.logo} aria-label="MAISON DE L 메종드엘 처음으로">
         <Image src="/images/logo-white.png" alt="" width={225} height={72} className={styles.logoWhite} loading="eager" />
         <Image src="/images/logo-black.png" alt="" width={225} height={72} className={styles.logoBlack} loading="eager" />
       </a>
+
+      <nav className={styles.nav} aria-label="주요 메뉴">
+        {nav.map((item) => (
+          <a key={item.href} href={item.href} className={styles.link}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
       <div className={styles.actions}>
-        <a href={`tel:${contact.phone.replaceAll("-", "")}`} className={styles.call} data-cursor="hover">
-          <span className={styles.callIcon}>
-            <PhoneIcon size={24} />
-          </span>
-          <span className={styles.callText}>
-            <b>예약 접수중</b> <span>{contact.phone}</span>
-          </span>
-          <span className="sr-only">로 전화 걸기</span>
+        <a href={`tel:${contact.phone.replaceAll("-", "")}`} className={styles.tel} aria-label={`전화 상담 ${contact.phone}`}>
+          <PhoneIcon size={18} />
+          <span className={styles.telNumber}>{contact.phone}</span>
         </a>
-        <a
-          href={contact.instagram}
-          target="_blank"
-          rel="noreferrer"
-          className={styles.insta}
-          aria-label="메종드엘 인스타그램 (새 창)"
-          data-cursor="hover"
-        >
-          <InstagramIcon size={36} />
+        <a href="#reservation" className={styles.book}>
+          상담 예약
         </a>
       </div>
     </header>

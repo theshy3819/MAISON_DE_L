@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Abhaya_Libre } from "next/font/google";
+import { Italiana } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import "./globals.css";
 
-const abhaya = Abhaya_Libre({
-  variable: "--font-abhaya",
-  weight: ["500"],
+const italiana = Italiana({
+  variable: "--font-italiana",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -19,10 +18,10 @@ export const metadata: Metadata = {
   keywords: ["메종드엘", "MAISON DE L", "광주 웨딩홀", "상무지구 웨딩홀", "광주 결혼식장", "럭셔리 웨딩"],
   openGraph: {
     title: "MAISON DE L — 2026.08 GRAND OPEN",
-    description: "A New Beginning in Luxury Wedding Venues. 광주 상무지구 메종드엘 웨딩홀",
+    description: "도심 속 별빛이 머무는 곳. 광주 상무지구 메종드엘 웨딩홀",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/images/hall-main.jpg", width: 1440, height: 1018, alt: "메종드엘 럭셔리 홀" }],
+    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "메종드엘 럭셔리 홀" }],
   },
 };
 
@@ -38,13 +37,12 @@ const motionFlag = `try{var c=document.documentElement.classList;if(!matchMedia(
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko" className={abhaya.variable} suppressHydrationWarning>
+    <html lang="ko" className={italiana.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionFlag }} />
       </head>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
-        <Cursor />
       </body>
     </html>
   );

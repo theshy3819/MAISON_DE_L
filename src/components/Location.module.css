@@ -1,18 +1,94 @@
-.section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: var(--section-pb);
-  background: #fff;
+.location {
+  padding: clamp(110px, 11vw, 200px) 0;
+  background: var(--c-crystal);
+  color: var(--c-black);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(40px, 6vw, 120px);
+  align-items: end;
+  width: var(--wide);
+  margin: 0 auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+}
+
+.address {
+  margin-top: clamp(20px, 2vw, 32px);
+  font-size: var(--fs-ko-title);
+  font-weight: 200;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.building {
+  margin-top: 8px;
+  color: #5d5f5a;
+}
+
+.info {
+  display: grid;
+  gap: 22px;
+  margin-top: clamp(40px, 4vw, 64px);
+  padding-top: clamp(28px, 2.6vw, 40px);
+  border-top: 1px solid var(--c-mist);
+}
+
+.info > div {
+  display: grid;
+  grid-template-columns: 4.5em 1fr;
+  gap: 16px;
+}
+
+.info dt {
+  font-weight: 600;
+}
+
+.info dd {
+  color: #4b4d49;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(32px, 3vw, 48px);
+}
+
+.link {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--c-black);
+  border-radius: 40px;
+  font-size: var(--fs-small);
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    background: var(--c-black);
+    color: var(--c-crystal);
+  }
+}
+
+/* The static map is shown in greyscale so the pin reads as the only colour */
 .map {
   position: relative;
-  width: var(--content);
-  aspect-ratio: 1424 / 800;
-  margin-top: var(--section-gap);
+  aspect-ratio: 1038 / 584;
   overflow: hidden;
-  background: #f3f1ec;
+  background: var(--c-mist);
 }
 
 .mapMedia {
@@ -20,162 +96,48 @@
   inset: 0;
 }
 
-.mapMedia img {
+.mapMedia > img {
   object-fit: cover;
+  filter: grayscale(1) contrast(0.92) brightness(1.04);
 }
 
-/* "Open in Kakao" chip appears on hover (always visible on touch) */
-.open {
+/* Sits on the venue marker baked into the static map */
+.pulse {
   position: absolute;
-  right: 20px;
-  bottom: 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  border-radius: 40px;
-  background: rgba(0, 0, 0, 0.82);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  backdrop-filter: blur(8px);
-  transition:
-    opacity 0.6s var(--ease-out),
-    transform 0.6s var(--ease-out);
+  left: 49.6%;
+  top: 41%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: var(--c-grass);
+  box-shadow: 0 0 0 0 rgba(169, 185, 148, 0.6);
+  animation: pulse 2.4s var(--ease-out) infinite;
 }
 
-@media (hover: hover) {
-  .open {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  .map:hover .open,
-  .open:focus-visible {
-    opacity: 1;
-    transform: none;
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 26px rgba(169, 185, 148, 0);
   }
 }
 
 .pin {
-  position: relative;
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #000;
-  color: #fff;
+  padding: 7px 14px;
+  border-radius: 30px;
+  background: var(--c-black);
+  color: var(--c-crystal);
   font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   white-space: nowrap;
   transform: translateY(-10px);
 }
 
-.pin::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: 12px;
-  height: 12px;
-  background: #000;
-  transform: translateX(-50%) rotate(45deg);
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(36px, 4.4vw, 84px);
-  margin: clamp(40px, 3.6vw, 70px) 0 0;
-  padding-inline: var(--gutter);
-  text-align: center;
-}
-
-.infoItem dt {
-  font-size: var(--fs-sub);
-  font-weight: 700;
-  line-height: 1.44;
-}
-
-.infoItem dd {
-  text-wrap: balance;
-  margin: 0;
-  font-size: var(--fs-sub);
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-.places {
-  display: flex;
-  margin-top: clamp(48px, 3.8vw, 72px);
-}
-
-.place {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(14px, 1.1vw, 20px);
-  padding-inline: clamp(24px, 3.6vw, 68px);
-}
-
-.place + .place {
-  border-left: 4px solid var(--c-mist);
-}
-
-.placeLabel {
-  font-size: clamp(14px, 0.95vw, 18px);
-  font-weight: 500;
-}
-
-.apps {
-  display: flex;
-  gap: clamp(16px, 2vw, 39px);
-}
-
-.app {
-  position: relative;
-  display: grid;
-  justify-items: center;
-}
-
-.appMark {
-  width: clamp(52px, 4.17vw, 80px);
-  height: auto;
-  border-radius: 50%;
-  transition:
-    transform 0.7s var(--ease-out),
-    box-shadow 0.7s var(--ease-out);
-}
-
-.appName {
-  position: absolute;
-  top: calc(100% + 10px);
-  font-size: 12px;
-  color: var(--c-sub);
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition:
-    opacity 0.5s var(--ease-out),
-    transform 0.5s var(--ease-out);
-}
-
-@media (hover: hover) {
-  .app:hover .appMark {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 24px rgba(0, 0, 0, 0.14);
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
-  .app:hover .appName {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .places {
-    flex-direction: column;
-    gap: 36px;
-  }
-  .place + .place {
-    border-left: 0;
+  .map {
+    order: -1;
   }
 }

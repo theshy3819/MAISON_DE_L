@@ -1,13 +1,12 @@
 import Buffet from "@/components/Buffet";
+import Day from "@/components/Day";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Intro from "@/components/Intro";
 import Location from "@/components/Location";
-import Opening from "@/components/Opening";
 import Reservation from "@/components/Reservation";
-import SpaceSection from "@/components/SpaceSection";
-import { spaces } from "@/content/site";
+import Spaces from "@/components/Spaces";
 
 export default function Home() {
   return (
@@ -16,10 +15,8 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Opening />
-        {spaces.map((space) => (
-          <SpaceSection key={space.id} space={space} />
-        ))}
+        <Spaces />
+        <Day />
         <Buffet />
         <Location />
         <Reservation />
