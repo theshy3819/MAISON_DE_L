@@ -1,19 +1,15 @@
 "use client";
 
-import Image from "next/image";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { location } from "@/content/site";
 import { useReveals } from "@/lib/useReveals";
-import KakaoMap from "./KakaoMap";
 import styles from "./Location.module.css";
-
-const KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY;
 
 export default function Location() {
   const ref = useRef<HTMLElement>(null);
   useReveals(ref);
-  const [liveMap, setLiveMap] = useState(Boolean(KAKAO_KEY));
-  const onFail = useCallback(() => setLiveMap(false), []);
+  // The map ignores the pointer until clicked, so scrolling past it never pans or zooms it by accident.
+  const [mapActive, setMapActive] = useState(false);
 
   return (
     <section ref={ref} id="location" className={styles.location} data-theme="light" aria-labelledby="location-title">
@@ -53,21 +49,28 @@ export default function Location() {
           </ul>
         </div>
 
-        <figure className={styles.map} data-reveal="rise">
+        <figure
+          className={styles.map}
+          data-active={mapActive || undefined}
+          data-reveal="rise"
+          onPointerLeave={() => setMapActive(false)}
+        >
           <div className={styles.mapMedia} data-reveal-media>
-            <Image src={location.staticMap} alt={`메종드엘 위치 지도: ${location.address}`} fill sizes="(max-width: 900px) 92vw, 52vw" />
-            {liveMap && KAKAO_KEY && (
-              <KakaoMap
-                appKey={KAKAO_KEY}
-                query={location.query}
-                coords={location.coords}
-                label="메종드엘"
-                markerClassName={styles.pin}
-                onFail={onFail}
-              />
-            )}
+            <iframe
+              src={location.mapEmbed}
+              title={`메종드엘 위치 지도: ${location.address}`}
+              className={styles.frame}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              tabIndex={mapActive ? 0 : -1}
+            />
           </div>
-          {!liveMap && <span className={styles.pulse} aria-hidden />}
+          {!mapActive && (
+            <button type="button" className={styles.shield} onClick={() => setMapActive(true)}>
+              <span className={styles.shieldLabel}>클릭해서 지도 움직이기</span>
+            </button>
+          )}
         </figure>
       </div>
     </section>

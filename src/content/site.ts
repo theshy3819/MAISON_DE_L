@@ -56,11 +56,12 @@ export const spaces: Space[] = [
     ko: "아스테르홀",
     subtitle: "밤하늘의 별빛이 쏟아지듯",
     copy: "눈부신 빛으로 물드는 홀. 오래 기다려온 한 장면처럼, 순간이 멈춘 듯 아름답게 펼쳐지는 웨딩을 완성합니다.",
+    note: "신부 입장 외 사진은 실제 공간 사진을 바탕으로 제작한 고화질 연출 이미지입니다.",
     shots: [
       real("aster-bride", "샹들리에 아래 버진로드에 선 신부", "신부 입장"),
-      real("aster-aisle", "꽃으로 둘러싸인 미러 버진로드", "버진로드"),
-      real("aster-sky", "크리스털 샹들리에와 별이 흐르는 천장", "별빛 천장"),
-      real("aster-flowers", "버진로드를 따라 놓인 흰 꽃 장식", "플라워"),
+      gen("aster-runway", "하트 샹들리에가 비치는 미러 버진로드와 양옆의 꽃길", "버진로드"),
+      gen("aster-starlight", "별빛처럼 반짝이는 하트 크리스털 샹들리에 천장", "별빛 천장"),
+      gen("aster-florals", "버진로드를 따라 놓인 흰 수국과 장미, 백합 장식", "플라워"),
     ],
   },
   {
@@ -83,7 +84,7 @@ export const spaces: Space[] = [
     copy: "밝은 공간에 자연스럽게 스며드는 빛과 플로럴 월. 예식 전 설레는 시간까지 가장 아름다운 모습으로 머무를 수 있도록 준비했습니다.",
     note: genNote,
     shots: [
-      gen("bridal-room", "흰 꽃 벽 앞의 부클레 소파", "대기 공간"),
+      gen("bridal-front", "정면에서 본 신부대기실: 플로럴 월과 곡선형 부클레 소파", "대기 공간"),
       gen("bridal-candle", "크리스털 캔들 홀더와 흰 장미 장식", "캔들 디테일"),
       gen("bridal-florals", "신부대기실을 채운 화이트 플로럴 월", "플로럴 월"),
     ],
@@ -129,17 +130,15 @@ export const buffet = {
   ],
 };
 
-const mapQuery = "광주 서구 시청로 67";
+const mapQuery = "광주광역시 서구 시청로 67";
 const parkQuery = "광주 서구 평화공원";
 
 export const location = {
   title: "오시는 길",
   address: "광주 서구 시청로 67, 3층",
   building: "광주시청 앞, 상무지구 CGV 건물",
-  // 카카오 지도 JavaScript 키가 있으면 NEXT_PUBLIC_KAKAO_MAP_KEY 로 실제 지도가 뜹니다.
-  coords: null as null | { lat: number; lng: number },
-  query: mapQuery,
-  staticMap: "/images/placeholder/map.png",
+  // Google Maps embed — no API key needed for the q= form
+  mapEmbed: `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&hl=ko&z=17&output=embed`,
   info: [
     { title: "교통", text: "지하철 역세권, 광주 송정역과 순환도로에서 가깝습니다." },
     { title: "주차", text: "건물 주차장과 바로 옆 평화공원 주차장을 이용할 수 있습니다." },
@@ -147,6 +146,7 @@ export const location = {
   links: [
     { label: "네이버 지도", href: `https://map.naver.com/p/search/${encodeURIComponent(mapQuery)}` },
     { label: "카카오맵", href: `https://map.kakao.com/link/search/${encodeURIComponent(mapQuery)}` },
+    { label: "구글 지도", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}` },
     { label: "T map", href: `tmap://search?name=${encodeURIComponent(mapQuery)}`, app: true },
     { label: "평화공원 주차장", href: `https://map.naver.com/p/search/${encodeURIComponent(parkQuery)}` },
   ],

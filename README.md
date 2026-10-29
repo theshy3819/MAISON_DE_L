@@ -52,12 +52,10 @@ npm run build && npm start
 
 `site.ts` 의 `hero` 는 현재 사진 기반입니다. 영상을 다시 넣을 때는 `Hero.tsx` 의 `<Image>` 자리에 `<video autoPlay muted loop playsInline poster>` 를 넣으면 아치 전환 연출이 그대로 적용됩니다.
 
-## 남은 임시 에셋
+## 지도
 
-| 파일 | 교체 방법 |
-| --- | --- |
-| `public/images/placeholder/map.png` | 카카오 지도 키(`NEXT_PUBLIC_KAKAO_MAP_KEY`)를 넣으면 실제 지도로 대체됨 |
+오시는 길 지도는 Google 지도 iframe(`site.ts` 의 `location.mapEmbed`, API 키 불필요)입니다. 스크롤을 방해하지 않도록 평소에는 흑백·조작 잠금 상태이고, 클릭하면 컬러로 바뀌며 움직일 수 있습니다.
 
 ## 환경 변수
 
-`.env.example` 참고. `NEXT_PUBLIC_KAKAO_MAP_KEY`(실제 지도), `RESERVATION_WEBHOOK_URL`(상담 신청 전달), `NEXT_PUBLIC_SITE_URL`(OG 이미지).
+`.env.example` 참고. `RESERVATION_WEBHOOK_URL`(상담 신청 전달), `NEXT_PUBLIC_SITE_URL`(OG 이미지).

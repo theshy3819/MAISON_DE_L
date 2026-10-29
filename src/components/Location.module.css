@@ -83,10 +83,10 @@
   }
 }
 
-/* The static map is shown in greyscale so the pin reads as the only colour */
+/* Quiet greyscale map that comes into colour once you start using it */
 .map {
   position: relative;
-  aspect-ratio: 1038 / 584;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--c-mist);
 }
@@ -96,41 +96,52 @@
   inset: 0;
 }
 
-.mapMedia > img {
-  object-fit: cover;
-  filter: grayscale(1) contrast(0.92) brightness(1.04);
+.frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* muted enough to sit with the page, but the red pin still reads */
+  filter: grayscale(0.55) contrast(1.03);
+  transition: filter 0.8s var(--ease-out);
 }
 
-/* Sits on the venue marker baked into the static map */
-.pulse {
+.map[data-active] .frame {
+  filter: none;
+}
+
+.shield {
   position: absolute;
-  left: 49.6%;
-  top: 41%;
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
-  border-radius: 50%;
-  background: var(--c-grass);
-  box-shadow: 0 0 0 0 rgba(169, 185, 148, 0.6);
-  animation: pulse 2.4s var(--ease-out) infinite;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 20px;
+  cursor: pointer;
 }
 
-@keyframes pulse {
-  to {
-    box-shadow: 0 0 0 26px rgba(169, 185, 148, 0);
-  }
-}
-
-.pin {
-  padding: 7px 14px;
-  border-radius: 30px;
-  background: var(--c-black);
+.shieldLabel {
+  padding: 9px 18px;
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0.78);
   color: var(--c-crystal);
-  font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  transform: translateY(-10px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+.shield:hover .shieldLabel,
+.shield:focus-visible .shieldLabel {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .shieldLabel {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (max-width: 900px) {
